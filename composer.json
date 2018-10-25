@@ -1,0 +1,40 @@
+{
+    "name": "m-adamski/symfony-notification-bundle",
+    "description": "Bundle for Symfony 4 which helps display information for the user",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maciej Adamski",
+            "email": "m.adamski@ideacode.pl"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "symfony/framework-bundle": "^4.1",
+        "symfony/twig-bundle": "^4.1"
+    },
+    "require-dev": {
+        "kint-php/kint": "^3.0",
+        "phpunit/phpunit": "^7.4",
+        "symfony/phpunit-bridge": "^4.1"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Adamski\\Symfony\\NotificationBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Adamski\\Symfony\\NotificationBundleTests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}

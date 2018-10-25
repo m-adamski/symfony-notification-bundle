@@ -1,0 +1,16 @@
+services:
+    notification_bundle.helper.notification:
+        class: Adamski\Symfony\NotificationBundle\Helper\NotificationHelper
+        arguments:
+            - "@session.flash_bag"
+            - "@router.default"
+
+    Adamski\Symfony\NotificationBundle\Helper\NotificationHelper:
+        alias: notification_bundle.helper.notification
+
+    notification_bundle.twig.extension.notification:
+        class: Adamski\Symfony\NotificationBundle\Twig\NotificationExtension
+        arguments:
+            - "@notification_bundle.helper.notification"
+        tags:
+            - { name: twig.extension }
