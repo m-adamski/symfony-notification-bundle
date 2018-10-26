@@ -11,8 +11,8 @@
     ],
     "require": {
         "php": "^7.1",
-        "symfony/framework-bundle": "^4.1",
-        "symfony/twig-bundle": "^4.1"
+        "symfony/framework-bundle": "^3.4|^4.1",
+        "symfony/twig-bundle": "^3.4|^4.1"
     },
     "require-dev": {
         "kint-php/kint": "^3.0",
