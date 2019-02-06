@@ -26,9 +26,7 @@ The helper provides a set of functions with which you can add a notification to 
 In order for the notifications to be displayed, a reference to the function should be placed in the template.
 
 ```(html)
-<section class="breadcrumbs-container">
-    {{ notification() }}
-</section>
+{{ notification() }}
 ```
 
 ## License
