@@ -23,7 +23,7 @@ class NotificationHelperTest extends TestCase {
     /**
      * {@inheritdoc}
      */
-    protected function setUp() {
+    protected function setUp(): void {
         $sessionMock = $this->createMock(FlashBag::class);
         $sessionMock->method("set")->willReturnCallback([$this, "setSession"]);
         $sessionMock->method("get")->willReturnCallback([$this, "getSession"]);
@@ -38,7 +38,7 @@ class NotificationHelperTest extends TestCase {
     /**
      * Test of addNotification method.
      */
-    public function testAddNotification() {
+    public function testAddNotification(): void {
 
         // Add sample notification & create expected collection
         $this->notificationHelper->addNotification(NotificationHelper::ERROR_TYPE, "text");
@@ -50,7 +50,7 @@ class NotificationHelperTest extends TestCase {
     /**
      * Test of clear method.
      */
-    public function testClear() {
+    public function testClear(): void {
 
         // Add sample notification & create expected collection
         $this->notificationHelper->addNotification(NotificationHelper::ERROR_TYPE, "text");
@@ -66,7 +66,7 @@ class NotificationHelperTest extends TestCase {
     /**
      * Test of getNotifications method.
      */
-    public function testGetNotifications() {
+    public function testGetNotifications(): void {
 
         // Add sample notification & create expected collection
         $this->notificationHelper->addNotification(NotificationHelper::ERROR_TYPE, "text");
@@ -79,7 +79,7 @@ class NotificationHelperTest extends TestCase {
      * @param string $namespace
      * @return array
      */
-    public function getSession(string $namespace) {
+    public function getSession(string $namespace): array {
         return array_key_exists($namespace, $this->notificationBag) ? $this->notificationBag[$namespace] : [];
     }
 
@@ -87,7 +87,7 @@ class NotificationHelperTest extends TestCase {
      * @param string $namespace
      * @param array  $notification
      */
-    public function setSession(string $namespace, array $notification) {
+    public function setSession(string $namespace, array $notification): void {
         $this->notificationBag[$namespace] = $notification;
     }
 }

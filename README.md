@@ -1,7 +1,9 @@
-# Notification Bundle for Symfony 4
+# Notification Bundle for Symfony
 
-The Symfony 4 Bundle, which aims to simplify the communication with the end user.
+The Symfony Bundle, which aims to simplify the communication with the end user.
 By using simple functions, we can create information that will later be displayed to the user.
+
+This bundle is compatible with Symfony 4.1 and Symfony 5.0. Symfony 3.4 compatibility abandoned.
 
 ## Installation
 
