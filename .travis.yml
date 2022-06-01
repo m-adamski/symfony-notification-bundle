@@ -3,23 +3,15 @@ os: linux
 cache:
     directories:
         - $HOME/.composer/cache/files
-        - $HOME/symfony-bridge/.phpunit
 
 env:
     global:
         - PHPUNIT_FLAGS="-v"
-        - SYMFONY_PHPUNIT_DIR="$HOME/symfony-bridge/.phpunit"
+
 jobs:
     fast_finish: true
     include:
-        -   php: 7.2
-            env: DEPENDENCIES="symfony/symfony:^4.1"
-
-        -   php: 7.2
-            env: DEPENDENCIES="symfony/symfony:^5.0"
-
-        -   php: 7.3
-        -   php: 7.4
+        - php: 8.0
 
 before_install:
     - if ! [ -v "$DEPENDENCIES" ]; then composer require --no-update ${DEPENDENCIES}; fi;

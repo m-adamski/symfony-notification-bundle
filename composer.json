@@ -10,13 +10,13 @@
         }
     ],
     "require": {
-        "php": "^7.2",
-        "symfony/framework-bundle": "^4.1|^5.0",
-        "symfony/twig-bundle": "^4.1|^5.0"
+        "php": ">=8.0.2",
+        "symfony/framework-bundle": "^6.0",
+        "symfony/twig-bundle": "^6.0"
     },
     "require-dev": {
-        "kint-php/kint": "^3.0",
-        "symfony/phpunit-bridge": "^4.1|^5.0"
+        "kint-php/kint": "^4.0",
+        "symfony/test-pack": "^1.0"
     },
     "config": {
         "sort-packages": true
@@ -33,7 +33,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0.x-dev"
+            "dev-master": "3.0.x-dev"
         }
     }
 }

@@ -10,10 +10,7 @@ use Twig\TwigFunction;
 
 class NotificationExtension extends AbstractExtension {
 
-    /**
-     * @var NotificationHelper
-     */
-    protected $notificationHelper;
+    protected NotificationHelper $notificationHelper;
 
     /**
      * NotificationExtension constructor.
@@ -27,7 +24,7 @@ class NotificationExtension extends AbstractExtension {
     /**
      * {@inheritdoc}
      */
-    public function getFunctions() {
+    public function getFunctions(): array {
         return [
             new TwigFunction("notification", [$this, "renderNotification"], ["is_safe" => ["html"], "needs_environment" => true])
         ];
@@ -39,7 +36,7 @@ class NotificationExtension extends AbstractExtension {
      * @param Environment $environment
      * @return bool|string
      */
-    public function renderNotification(Environment $environment) {
+    public function renderNotification(Environment $environment): bool|string {
 
         // Get stored Notifications
         $storedNotifications = $this->notificationHelper->getNotifications();

@@ -10,15 +10,8 @@ use Symfony\Component\Routing\Router;
 
 class NotificationHelperTest extends TestCase {
 
-    /**
-     * @var array
-     */
-    protected $notificationBag;
-
-    /**
-     * @var NotificationHelper
-     */
-    protected $notificationHelper;
+    protected array              $notificationBag;
+    protected NotificationHelper $notificationHelper;
 
     /**
      * {@inheritdoc}

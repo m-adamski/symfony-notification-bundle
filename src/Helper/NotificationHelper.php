@@ -19,20 +19,9 @@ class NotificationHelper {
     const INFO_TYPE = "info";
     const INFORMATION_TYPE = "information";
 
-    /**
-     * @var FlashBagInterface
-     */
-    protected $flashSession;
-
-    /**
-     * @var RouterInterface
-     */
-    protected $router;
-
-    /**
-     * @var array
-     */
-    protected $allowedTypes = ["alert", "success", "warning", "error", "info", "information"];
+    protected FlashBagInterface $flashSession;
+    protected RouterInterface   $router;
+    protected array             $allowedTypes = ["alert", "success", "warning", "error", "info", "information"];
 
     /**
      * NotificationHelper constructor.
@@ -51,7 +40,7 @@ class NotificationHelper {
      * @param string $type
      * @param string $text
      */
-    public function addNotification(string $type, string $text) {
+    public function addNotification(string $type, string $text): void {
 
         // Check if specified notification type is allowed
         if (!in_array($type, $this->allowedTypes)) {
@@ -76,7 +65,7 @@ class NotificationHelper {
      * @param string $text
      * @return RedirectResponse
      */
-    public function redirectNotification(string $url, string $type, string $text) {
+    public function redirectNotification(string $url, string $type, string $text): RedirectResponse {
         $this->addNotification($type, $text);
 
         return new RedirectResponse($url);
@@ -91,7 +80,7 @@ class NotificationHelper {
      * @param array  $routeParams
      * @return RedirectResponse
      */
-    public function routeRedirectNotification(string $route, string $type, string $text, array $routeParams = []) {
+    public function routeRedirectNotification(string $route, string $type, string $text, array $routeParams = []): RedirectResponse {
         return $this->redirectNotification(
             $this->router->generate($route, $routeParams), $type, $text
         );
@@ -100,7 +89,7 @@ class NotificationHelper {
     /**
      * Clear Notifications collection.
      */
-    public function clear() {
+    public function clear(): void {
         $this->flashSession->set(self::SESSION_NAMESPACE, []);
     }
 
@@ -109,7 +98,7 @@ class NotificationHelper {
      *
      * @return array
      */
-    public function getNotifications() {
+    public function getNotifications(): array {
         return $this->flashSession->get(self::SESSION_NAMESPACE);
     }
 }

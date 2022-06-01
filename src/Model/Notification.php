@@ -6,15 +6,8 @@ use Serializable;
 
 class Notification implements Serializable {
 
-    /**
-     * @var string
-     */
-    protected $type;
-
-    /**
-     * @var string
-     */
-    protected $text;
+    protected string $type;
+    protected string $text;
 
     /**
      * Notification constructor.
@@ -30,7 +23,7 @@ class Notification implements Serializable {
     /**
      * @return string
      */
-    public function getType() {
+    public function getType(): string {
         return $this->type;
     }
 
@@ -44,7 +37,7 @@ class Notification implements Serializable {
     /**
      * @return string
      */
-    public function getText() {
+    public function getText(): string {
         return $this->text;
     }
 
@@ -58,7 +51,7 @@ class Notification implements Serializable {
     /**
      * {@inheritdoc}
      */
-    public function serialize() {
+    public function serialize(): ?string {
         return serialize([
             $this->type,
             $this->text
