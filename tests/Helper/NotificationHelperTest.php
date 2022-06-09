@@ -5,7 +5,8 @@ namespace Adamski\Symfony\NotificationBundleTests\Helper;
 use Adamski\Symfony\NotificationBundle\Helper\NotificationHelper;
 use Adamski\Symfony\NotificationBundle\Model\Notification;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Router;
 
 class NotificationHelperTest extends TestCase {
@@ -17,15 +18,18 @@ class NotificationHelperTest extends TestCase {
      * {@inheritdoc}
      */
     protected function setUp(): void {
-        $sessionMock = $this->createMock(FlashBag::class);
+        $sessionMock = $this->createMock(Session::class);
         $sessionMock->method("set")->willReturnCallback([$this, "setSession"]);
         $sessionMock->method("get")->willReturnCallback([$this, "getSession"]);
+
+        $requestStackMock = $this->createMock(RequestStack::class);
+        $requestStackMock->method("getSession")->willReturn($sessionMock);
 
         $routerMock = $this->createMock(Router::class);
         $routerMock->method("generate")->willReturn("http://example.com");
 
         $this->notificationBag = [];
-        $this->notificationHelper = new NotificationHelper($sessionMock, $routerMock);
+        $this->notificationHelper = new NotificationHelper($requestStackMock, $routerMock);
     }
 
     /**
@@ -37,7 +41,7 @@ class NotificationHelperTest extends TestCase {
         $this->notificationHelper->addNotification(NotificationHelper::ERROR_TYPE, "text");
         $expectedCollection[] = new Notification(NotificationHelper::ERROR_TYPE, "text");
 
-        $this->assertEquals($expectedCollection, $this->getSession("NotificationsBag"));
+        $this->assertEquals($expectedCollection, $this->getSession("_notification_bundle.notification"));
     }
 
     /**
@@ -49,11 +53,11 @@ class NotificationHelperTest extends TestCase {
         $this->notificationHelper->addNotification(NotificationHelper::ERROR_TYPE, "text");
         $expectedCollection[] = new Notification(NotificationHelper::ERROR_TYPE, "text");
 
-        $this->assertEquals($expectedCollection, $this->getSession("NotificationsBag"));
+        $this->assertEquals($expectedCollection, $this->getSession("_notification_bundle.notification"));
 
         // Clear session
         $this->notificationHelper->clear();
-        $this->assertEquals([], $this->getSession("NotificationsBag"));
+        $this->assertEquals([], $this->getSession("_notification_bundle.notification"));
     }
 
     /**

@@ -2,7 +2,7 @@ services:
     notification_bundle.helper.notification:
         class: Adamski\Symfony\NotificationBundle\Helper\NotificationHelper
         arguments:
-            - "@session.flash_bag"
+            - "@request_stack"
             - "@router.default"
 
     Adamski\Symfony\NotificationBundle\Helper\NotificationHelper:

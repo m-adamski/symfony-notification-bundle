@@ -5,12 +5,12 @@ namespace Adamski\Symfony\NotificationBundle\Helper;
 use Adamski\Symfony\NotificationBundle\Model\Notification;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 
 class NotificationHelper {
 
-    const SESSION_NAMESPACE = "NotificationsBag";
+    const SESSION_NAMESPACE = "_notification_bundle.notification";
 
     const ALERT_TYPE = "alert";
     const SUCCESS_TYPE = "success";
@@ -19,18 +19,16 @@ class NotificationHelper {
     const INFO_TYPE = "info";
     const INFORMATION_TYPE = "information";
 
-    protected FlashBagInterface $flashSession;
-    protected RouterInterface   $router;
-    protected array             $allowedTypes = ["alert", "success", "warning", "error", "info", "information"];
+    private array           $allowedTypes = ["alert", "success", "warning", "error", "info", "information"];
+    private RequestStack    $requestStack;
+    private RouterInterface $router;
 
     /**
-     * NotificationHelper constructor.
-     *
-     * @param FlashBagInterface $flashSession
-     * @param RouterInterface   $router
+     * @param RequestStack    $requestStack
+     * @param RouterInterface $router
      */
-    public function __construct(FlashBagInterface $flashSession, RouterInterface $router) {
-        $this->flashSession = $flashSession;
+    public function __construct(RequestStack $requestStack, RouterInterface $router) {
+        $this->requestStack = $requestStack;
         $this->router = $router;
     }
 
@@ -48,13 +46,13 @@ class NotificationHelper {
         }
 
         // Get stored Notifications
-        $storedNotifications = $this->flashSession->get(self::SESSION_NAMESPACE);
+        $storedNotifications = $this->requestStack->getSession()->get(self::SESSION_NAMESPACE);
 
         // Add new Notification
         $storedNotifications[] = new Notification($type, $text);
 
         // Store Notifications in Session
-        $this->flashSession->set(self::SESSION_NAMESPACE, $storedNotifications);
+        $this->requestStack->getSession()->set(self::SESSION_NAMESPACE, $storedNotifications);
     }
 
     /**
@@ -90,7 +88,7 @@ class NotificationHelper {
      * Clear Notifications collection.
      */
     public function clear(): void {
-        $this->flashSession->set(self::SESSION_NAMESPACE, []);
+        $this->requestStack->getSession()->set(self::SESSION_NAMESPACE, []);
     }
 
     /**
@@ -99,6 +97,6 @@ class NotificationHelper {
      * @return array
      */
     public function getNotifications(): array {
-        return $this->flashSession->get(self::SESSION_NAMESPACE);
+        return $this->requestStack->getSession()->get(self::SESSION_NAMESPACE);
     }
 }

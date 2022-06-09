@@ -2,9 +2,7 @@
 
 namespace Adamski\Symfony\NotificationBundle\Model;
 
-use Serializable;
-
-class Notification implements Serializable {
+class Notification {
 
     protected string $type;
     protected string $text;
@@ -30,7 +28,7 @@ class Notification implements Serializable {
     /**
      * @param string $type
      */
-    public function setType(string $type) {
+    public function setType(string $type): void {
         $this->type = $type;
     }
 
@@ -44,24 +42,22 @@ class Notification implements Serializable {
     /**
      * @param string $text
      */
-    public function setText(string $text) {
+    public function setText(string $text): void {
         $this->text = $text;
     }
 
     /**
-     * {@inheritdoc}
+     * @return array
      */
-    public function serialize(): ?string {
-        return serialize([
-            $this->type,
-            $this->text
-        ]);
+    public function __serialize(): array {
+        return [$this->getType(), $this->getText()];
     }
 
     /**
-     * {@inheritdoc}
+     * @param array $data
+     * @return void
      */
-    public function unserialize($serialized) {
-        list ($this->type, $this->text) = unserialize($serialized);
+    public function __unserialize(array $data): void {
+        list($this->type, $this->text) = $data;
     }
 }
