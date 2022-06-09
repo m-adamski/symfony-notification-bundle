@@ -39,20 +39,14 @@ class NotificationHelper {
      * @param string $text
      */
     public function addNotification(string $type, string $text): void {
-
-        // Check if specified notification type is allowed
         if (!in_array($type, $this->allowedTypes)) {
             throw new InvalidArgumentException("Specified notification type is not allowed");
         }
 
-        // Get stored Notifications
-        $storedNotifications = $this->requestStack->getSession()->get(self::SESSION_NAMESPACE);
-
-        // Add new Notification
-        $storedNotifications[] = new Notification($type, $text);
-
-        // Store Notifications in Session
-        $this->requestStack->getSession()->set(self::SESSION_NAMESPACE, $storedNotifications);
+        // Set notifications
+        $this->requestStack->getSession()->set(
+            self::SESSION_NAMESPACE, [...$this->getNotifications(), new Notification($type, $text)]
+        );
     }
 
     /**
@@ -97,6 +91,6 @@ class NotificationHelper {
      * @return array
      */
     public function getNotifications(): array {
-        return $this->requestStack->getSession()->get(self::SESSION_NAMESPACE);
+        return $this->requestStack->getSession()->remove(self::SESSION_NAMESPACE) ?? [];
     }
 }
