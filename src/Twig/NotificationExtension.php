@@ -10,15 +10,12 @@ use Twig\TwigFunction;
 
 class NotificationExtension extends AbstractExtension {
 
-    protected NotificationHelper $notificationHelper;
-
     /**
-     * NotificationExtension constructor.
-     *
      * @param NotificationHelper $notificationHelper
      */
-    public function __construct(NotificationHelper $notificationHelper) {
-        $this->notificationHelper = $notificationHelper;
+    public function __construct(
+        protected readonly NotificationHelper $notificationHelper
+    ) {
     }
 
     /**

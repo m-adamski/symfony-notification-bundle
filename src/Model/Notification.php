@@ -4,18 +4,14 @@ namespace Adamski\Symfony\NotificationBundle\Model;
 
 class Notification {
 
-    protected string $type;
-    protected string $text;
-
     /**
-     * Notification constructor.
-     *
      * @param string $type
      * @param string $text
      */
-    public function __construct(string $type, string $text) {
-        $this->type = $type;
-        $this->text = $text;
+    public function __construct(
+        protected string $type,
+        protected string $text
+    ) {
     }
 
     /**

@@ -19,17 +19,16 @@ class NotificationHelper {
     const INFO_TYPE = "info";
     const INFORMATION_TYPE = "information";
 
-    private array           $allowedTypes = ["alert", "success", "warning", "error", "info", "information"];
-    private RequestStack    $requestStack;
-    private RouterInterface $router;
+    private array $allowedTypes = ["alert", "success", "warning", "error", "info", "information"];
 
     /**
      * @param RequestStack    $requestStack
      * @param RouterInterface $router
      */
-    public function __construct(RequestStack $requestStack, RouterInterface $router) {
-        $this->requestStack = $requestStack;
-        $this->router = $router;
+    public function __construct(
+        protected readonly RequestStack    $requestStack,
+        protected readonly RouterInterface $router
+    ) {
     }
 
     /**
