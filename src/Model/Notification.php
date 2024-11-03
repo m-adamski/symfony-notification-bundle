@@ -3,57 +3,27 @@
 namespace Adamski\Symfony\NotificationBundle\Model;
 
 class Notification {
-
-    /**
-     * @param string $type
-     * @param string $text
-     */
     public function __construct(
-        protected string $type,
-        protected string $text
+        private Type   $type,
+        private string $message,
     ) {
     }
 
-    /**
-     * @return string
-     */
-    public function getType(): string {
+    public function getType(): Type {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     */
-    public function setType(string $type): void {
+    public function setType(Type $type): Notification {
         $this->type = $type;
+        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getText(): string {
-        return $this->text;
+    public function getMessage(): string {
+        return $this->message;
     }
 
-    /**
-     * @param string $text
-     */
-    public function setText(string $text): void {
-        $this->text = $text;
-    }
-
-    /**
-     * @return array
-     */
-    public function __serialize(): array {
-        return [$this->getType(), $this->getText()];
-    }
-
-    /**
-     * @param array $data
-     * @return void
-     */
-    public function __unserialize(array $data): void {
-        list($this->type, $this->text) = $data;
+    public function setMessage(string $message): Notification {
+        $this->message = $message;
+        return $this;
     }
 }

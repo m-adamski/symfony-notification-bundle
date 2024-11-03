@@ -1,11 +1,13 @@
 # Notification Bundle for Symfony
 
-The Symfony Bundle, which aims to simplify the communication with the end user.
-By using simple functions, we can create information that will later be displayed to the user.
+The Symfony Bundle was created to support simple notifications.
+Compared to previous versions, this one is based on simple methods of creating and adding notifications.
+
+Version 5.0 doesn't have compatibility with previous versions.
 
 ## Installation
 
-This bundle can be installed by Composer:
+Composer can install this bundle:
 
 ```
 $ composer require m-adamski/symfony-notification-bundle
@@ -13,19 +15,21 @@ $ composer require m-adamski/symfony-notification-bundle
 
 ## How to use it?
 
-The helper provides a set of functions with which you can add a notification to the set, create a notification redirection, clear the list of all notifications.
+Compared to the previous version, to add a notification, we call the ``add`` function:
 
-| Method                    | Description                                                                                                                     |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| addNotification           | The function adds a notification of a specific type and message content                                                         |
-| redirectNotification      | The function returns a redirection to a specific URL address and adds a notification about certain parameters                   |
-| routeRedirectNotification | Like the redirectNotification function, a redirection to a specific route is returned. Notification is created and added to set |
-| clear                     | The function clears the set of all notifications                                                                                |
-| getNotifications          | The function returns a list of all notifications                                                                                |
+```php
+use Adamski\Symfony\NotificationBundle\Helper\NotificationHelper;
+use Adamski\Symfony\NotificationBundle\Model\Notification;
+use Adamski\Symfony\NotificationBundle\Model\Type;
 
-In order for the notifications to be displayed, a reference to the function should be placed in the template.
+$this->notificationHelper
+    ->add(new Notification(Type::SUCCESS, "Sample notification"))
+    ->add(new Notification(Type::SUCCESS, "Second sample notification"));
+```
 
-```(html)
+The custom Twig function is responsible for displaying notifications (place it somewhere in the template):
+
+```html
 {{ notification() }}
 ```
 

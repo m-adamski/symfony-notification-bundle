@@ -1,6 +1,6 @@
 {
     "name": "m-adamski/symfony-notification-bundle",
-    "description": "Bundle for Symfony which helps display information for the user",
+    "description": "The Symfony Bundle was created to support simple notifications",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
@@ -11,12 +11,12 @@
     ],
     "require": {
         "php": ">=8.2",
-        "symfony/framework-bundle": "^7.0",
-        "symfony/twig-bundle": "^7.0"
+        "symfony/framework-bundle": "^7.1",
+        "symfony/twig-bundle": "^7.1"
     },
     "require-dev": {
         "kint-php/kint": "^5.0",
-        "symfony/test-pack": "^1.0"
+        "symfony/test-pack": "^1.1"
     },
     "config": {
         "sort-packages": true
@@ -33,7 +33,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.0.x-dev"
+            "dev-master": "5.0.x-dev"
         }
     }
 }
