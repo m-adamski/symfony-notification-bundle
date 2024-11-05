@@ -3,20 +3,25 @@
 namespace Adamski\Symfony\NotificationBundle\Helper;
 
 use Adamski\Symfony\NotificationBundle\Model\Notification;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class NotificationHelper {
-    const DEFAULT_NAMESPACE = "_application.notifications";
-    private array $notifications = [];
+    const DEFAULT_NAMESPACE = "_application.session.notifications";
+
+    public function __construct(
+        private readonly RequestStack $requestStack,
+    ) {}
 
     /**
      * Add notification to the namespace collection.
      *
      * @param Notification $notification
      * @param string       $namespace
+     *
      * @return $this
      */
     public function add(Notification $notification, string $namespace = self::DEFAULT_NAMESPACE): self {
-        $this->notifications[$namespace][] = $notification;
+        $this->requestStack->getSession()->set($namespace, [...$this->get($namespace), $notification]);
 
         return $this;
     }
@@ -25,20 +30,22 @@ class NotificationHelper {
      * Get notification from the namespace collection.
      *
      * @param string $namespace
+     *
      * @return array
      */
     public function get(string $namespace = self::DEFAULT_NAMESPACE): array {
-        return $this->notifications[$namespace] ?? [];
+        return $this->requestStack->getSession()->remove($namespace) ?? [];
     }
 
     /**
      * Clear notifications in the namespace collection.
      *
      * @param string $namespace
+     *
      * @return $this
      */
     public function clear(string $namespace = self::DEFAULT_NAMESPACE): self {
-        $this->notifications[$namespace] = [];
+        $this->requestStack->getSession()->set($namespace, []);
 
         return $this;
     }

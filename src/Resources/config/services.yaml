@@ -1,6 +1,8 @@
 services:
     notification_bundle.helper.notification:
         class: Adamski\Symfony\NotificationBundle\Helper\NotificationHelper
+        arguments:
+            - '@request_stack'
 
     Adamski\Symfony\NotificationBundle\Helper\NotificationHelper:
         alias: notification_bundle.helper.notification
